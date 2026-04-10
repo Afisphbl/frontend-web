@@ -5,9 +5,17 @@ import PostCard from "../../components/PostCard/PostCard";
 import CategoryFilter from "../../components/CategotyFilter/CategoryFilter";
 import { useSelector } from "react-redux";
 import { getPosts } from "../../features/posts/postsSelector";
+import { useSearchParams } from "react-router-dom";
 
 function Posts() {
   const { posts } = useSelector(getPosts);
+  const [searchParams] = useSearchParams();
+  const categoryId = searchParams.get("category") ?? "all";
+  const filteredPosts =
+    categoryId !== "all"
+      ? posts?.filter((post) => +post.categoryId === +categoryId)
+      : posts;
+  console.log(categoryId, posts[0].categoryId);
   return (
     <main className="posts-page animate-fade-in">
       <div className="page-header">
@@ -40,8 +48,8 @@ function Posts() {
         <CategoryFilter />
 
         <div className="posts-grid">
-          {Array.isArray(posts) && posts.length > 0 ? (
-            posts.map((post) => <PostCard key={post.id} {...post} />)
+          {Array.isArray(filteredPosts) && filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => <PostCard key={post.id} {...post} />)
           ) : (
             <div className="no-posts glass">
               <h2>No posts found</h2>

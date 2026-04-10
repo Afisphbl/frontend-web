@@ -90,6 +90,12 @@
   font-size: 2rem;
 }
 
+.post-success {
+  margin-bottom: 1rem;
+  color: #16a34a;
+  font-weight: 600;
+}
+
 .quick-form {
   display: grid;
   gap: 1.5rem;

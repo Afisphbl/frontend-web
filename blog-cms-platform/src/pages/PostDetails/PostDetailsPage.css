@@ -1,0 +1,253 @@
+.post-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 3rem;
+  transition: all 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--accent-primary);
+  transform: translateX(-4px);
+}
+
+.post-header {
+  margin-bottom: 3rem;
+}
+
+.post-tags {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.status-tag {
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.status-tag.published {
+  background: #10b981;
+  color: white;
+}
+
+.post-header h1 {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.post-meta-detailed {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.author-text .name {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.author-text .role {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.meta-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-color);
+}
+
+.publish-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-featured-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-primary) 100%);
+  opacity: 0.1; /* Subtle texture background */
+}
+
+.image-placeholder {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.post-body {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  margin-bottom: 4rem;
+}
+
+.post-body p {
+  margin-bottom: 2rem;
+}
+
+.post-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.toolbar-main {
+  display: flex;
+  gap: 1rem;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.toolbar-btn.primary {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.toolbar-btn.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.toolbar-btn.danger:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.author-footer-card {
+  padding: 2.5rem;
+  border-radius: 2rem;
+}
+
+.author-header {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.author-description h3 {
+  margin-bottom: 0.5rem;
+}
+
+.author-description p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.author-link {
+  color: var(--accent-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .post-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .post-meta-detailed {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .meta-divider {
+    display: none;
+  }
+}

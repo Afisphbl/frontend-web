@@ -15,3 +15,17 @@ export const getFetch = async (endpoint, option) => {
     throw error;
   }
 };
+
+export const getFetchById = async (endpoint, id) => {
+  try {
+    const res = await fetch(`${API_URL}/${endpoint}/${id}`);
+
+    if (!res.ok) throw new Error("Something went wrong");
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("💥💥💥 ERROR: " + error);
+    throw error;
+  }
+};

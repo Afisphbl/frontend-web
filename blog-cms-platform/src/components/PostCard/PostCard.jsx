@@ -4,7 +4,7 @@ import { Clock, PenLine, Tag, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/helper";
 
-function PostCard({ title, content, authorId, categoryId, createdAt }) {
+function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
   return (
     <div className="post-card glass animate-slide-up">
       <div className="post-card-content">
@@ -19,7 +19,9 @@ function PostCard({ title, content, authorId, categoryId, createdAt }) {
           </span>
         </div>
 
-        <h1 className="post-title">{title}</h1>
+        <Link to={`/posts/${id}`} className="post-title">
+          {title}
+        </Link>
         <p className="post-excerpt">
           {typeof content === "string"
             ? content.length > 100

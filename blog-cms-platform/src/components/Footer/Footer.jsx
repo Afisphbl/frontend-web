@@ -2,12 +2,13 @@ import { Feather, Terminal } from "lucide-react";
 import "./Footer.css";
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-brand">
           <Feather size={20} />
-          <span>Aether CMS &copy; 2026</span>
+          <span>Aether CMS &copy; {currentYear}</span>
         </div>
         <div className="footer-status">
           <Terminal size={14} />

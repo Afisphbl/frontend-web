@@ -33,6 +33,7 @@ function Navbar() {
         <nav className="nav-links">
           <NavLink
             to="/posts"
+            aria-label="Explore posts"
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
@@ -42,6 +43,7 @@ function Navbar() {
           </NavLink>
           <NavLink
             to="/admin/posts/new"
+            aria-label="Create new post"
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
@@ -53,6 +55,7 @@ function Navbar() {
 
         <div className="navbar-actions">
           <button
+            type="button"
             className="theme-toggle"
             aria-label="Toggle Theme"
             onClick={() => dispatch(toggleTheme())}

@@ -7,6 +7,7 @@ import { fetchPosts } from "../features/posts/postsSlice";
 import { useSelector } from "react-redux";
 import { getPosts } from "../features/posts/postsSelector";
 import { fetchCategories } from "../features/categories/categoriesSlice";
+import { fetchAuthors } from "../features/authors/authorsSlice";
 
 function AppLayout() {
   const { status } = useSelector(getPosts);
@@ -24,8 +25,11 @@ function AppLayout() {
 }
 
 export async function loader() {
-  store.dispatch(fetchPosts());
-  store.dispatch(fetchCategories());
+  await Promise.all([
+    store.dispatch(fetchPosts()).unwrap(),
+    store.dispatch(fetchCategories()).unwrap(),
+    store.dispatch(fetchAuthors()).unwrap(),
+  ]);
   return null;
 }
 

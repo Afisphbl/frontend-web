@@ -9,7 +9,11 @@
   gap: 3rem;
   margin-bottom: 3rem;
   align-items: center;
-  background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(59, 130, 246, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg) 0%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
 }
 
 .category-icon-wrapper {
@@ -34,7 +38,7 @@
 }
 
 .category-hero-content h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 1rem;
 }
 

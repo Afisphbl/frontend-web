@@ -1,0 +1,117 @@
+.author-posts-page {
+  padding-bottom: 5rem;
+}
+
+.author-hero {
+  display: flex;
+  padding: 4rem;
+  border-radius: 2.5rem;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  align-items: center;
+}
+
+.author-avatar-huge {
+  width: 160px;
+  height: 160px;
+  border-radius: 3rem;
+  background: var(--accent-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 800;
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+}
+
+.author-hero-content {
+  flex: 1;
+}
+
+.author-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--selection-bg);
+  color: var(--accent-primary);
+  border-radius: 2rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.author-hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.author-bio {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.author-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-4px);
+}
+
+.archive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.archive-header h2 {
+  font-size: 2rem;
+}
+
+.archive-header .count {
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .author-hero {
+    flex-direction: column;
+    padding: 2.5rem;
+    text-align: center;
+  }
+  
+  .author-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .author-hero h1 {
+    font-size: 2.5rem;
+  }
+}

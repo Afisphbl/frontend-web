@@ -1,19 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout, { loader as appLoader } from "../Layout/AppLayout";
-import Posts from "../pages/Posts/Posts";
+import Posts, { action as postsAction } from "../pages/Posts/Posts";
+import ErrorPage from "../pages/Error/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     loader: appLoader,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Posts />,
+        action: postsAction,
       },
       {
         path: "posts",
         element: <Posts />,
+        action: postsAction,
       },
       {
         path: "admin/posts/new",

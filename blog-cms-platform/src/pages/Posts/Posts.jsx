@@ -83,7 +83,9 @@ function Posts() {
       <section className="quick-create glass">
         <h2>Quick Post</h2>
         {success && (
-          <p className="post-success">Post published successfully.</p>
+          <p className="post-success" role="status" aria-live="polite">
+            + Post published successfully. +{" "}
+          </p>
         )}
 
         <Form method="post" className="quick-form" ref={formRef}>

@@ -18,7 +18,9 @@ export const getFetch = async (endpoint, option) => {
 
 export const getFetchById = async (endpoint, id) => {
   try {
-    const res = await fetch(`${API_URL}/${endpoint}/${id}`);
+    const res = await fetch(
+      `${API_URL}/${endpoint}/${encodeURIComponent(String(id))}`,
+    );
 
     if (!res.ok) throw new Error("Something went wrong");
 

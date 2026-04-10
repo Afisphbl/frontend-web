@@ -7,18 +7,23 @@ import {
   Calendar,
   Clock,
   PenSquare,
-  Save,
-  Share,
   Share2,
   Tag,
   Trash2,
 } from "lucide-react";
 import { getFetchById } from "../../service/getFetch";
 import { formatDate } from "../../utils/helper";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../features/categories/categoriesSelector";
+import Category from "../Category/Category";
 
 function PostDetails() {
   const { categoryId, status, authorId, content, createdAt, title } =
     useLoaderData();
+
+  const { categories } = useSelector(getCategories);
+
+  const { name } = categories.find((Category) => Category.id === categoryId);
   return (
     <section className="post-details animate-fade-in">
       <Link to="/posts" className="back-link">
@@ -27,12 +32,16 @@ function PostDetails() {
       </Link>
       <header className="post-header">
         <div className="post-tags ">
-          <div className="category-tag glass">
+          <Link to={`/categories/${categoryId}`} className="category-tag glass">
             <Tag size={16} />
-            <span>Category {categoryId}</span>
-          </div>
+            <span>{name}</span>
+          </Link>
 
-          <span className="status-tag published">{status}</span>
+          <span
+            className={`status-tag ${String(status).toLowerCase() === "published" ? "published" : ""}`}
+          >
+            {status}
+          </span>
         </div>
         <h1>{title}</h1>
 
@@ -84,11 +93,11 @@ function PostDetails() {
         <div className="meta-divider"></div>
 
         <div className="toolbar-actions">
-          <button className="icon-btn">
+          <button type="button" className="icon-btn" aria-label="Bookmark post">
             <Bookmark size={20} />
           </button>
 
-          <button className="icon-btn">
+          <button type="button" className="icon-btn" aria-label="Share post">
             <Share2 size={20} />
           </button>
         </div>

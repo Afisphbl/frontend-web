@@ -1,0 +1,23 @@
+.footer {
+  padding: 3rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.footer-brand,
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

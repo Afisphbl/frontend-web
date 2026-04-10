@@ -3,11 +3,11 @@ import { Funnel, Search } from "lucide-react";
 import "./Posts.css";
 import PostCard from "../../components/PostCard/PostCard";
 import CategoryFilter from "../../components/CategotyFilter/CategoryFilter";
-import { getFetch } from "../../service/getFetch";
-import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getPosts } from "../../features/posts/postsSelector";
 
 function Posts() {
-  const posts = useLoaderData();
+  const { posts } = useSelector(getPosts);
   return (
     <main className="posts-page animate-fade-in">
       <div className="page-header">
@@ -40,18 +40,18 @@ function Posts() {
         <CategoryFilter />
 
         <div className="posts-grid">
-          {posts.map((post) => (
-            <PostCard key={post.id} {...post} />
-          ))}
+          {Array.isArray(posts) && posts.length > 0 ? (
+            posts.map((post) => <PostCard key={post.id} {...post} />)
+          ) : (
+            <div className="no-posts glass">
+              <h2>No posts found</h2>
+              <p>Try changing your search or category filter.</p>
+            </div>
+          )}
         </div>
       </section>
     </main>
   );
-}
-
-export async function loader() {
-  const data = await getFetch("posts");
-  return data;
 }
 
 export default Posts;

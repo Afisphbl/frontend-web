@@ -21,7 +21,11 @@ function PostCard({ title, content, authorId, categoryId, createdAt }) {
 
         <h1 className="post-title">{title}</h1>
         <p className="post-excerpt">
-          {content.length > 100 ? content.substring(0, 100) + "..." : content}
+          {typeof content === "string"
+            ? content.length > 100
+              ? `${content.substring(0, 100)}...`
+              : content
+            : ""}
         </p>
 
         <div className="post-footer">
@@ -31,10 +35,18 @@ function PostCard({ title, content, authorId, categoryId, createdAt }) {
           </Link>
 
           <div className="post-actions">
-            <button className="action-btn edit">
+            <button
+              type="button"
+              className="action-btn edit"
+              aria-label="Edit post"
+            >
               <PenLine size={16} />
             </button>
-            <button className="action-btn delete">
+            <button
+              type="button"
+              className="action-btn delete"
+              aria-label="Delete post"
+            >
               <Trash2 size={16} />
             </button>
           </div>

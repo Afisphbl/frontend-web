@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout, { loader as appLoader } from "../Layout/AppLayout";
-import Posts, { loader as postsLoader } from "../pages/Posts/Posts";
+import Posts from "../pages/Posts/Posts";
 
 export const router = createBrowserRouter([
   {
@@ -10,12 +10,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Posts />,
-        loader: postsLoader,
       },
       {
         path: "posts",
         element: <Posts />,
-        loader: postsLoader,
       },
       {
         path: "admin/posts/new",

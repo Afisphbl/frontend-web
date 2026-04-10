@@ -9,13 +9,15 @@ const categories = [
   "Engineering",
 ];
 
-function CategoryFilter() {
+function CategoryFilter({ activeCategory = "All Posts" }) {
   return (
     <div className="category-filter">
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <button
-          className={`filter-chip ${index === 0 ? "active" : ""}`}
-          key={index}
+          type="button"
+          className={`filter-chip ${activeCategory === category ? "active" : ""}`}
+          aria-pressed={activeCategory === category}
+          key={category}
         >
           {category}
         </button>

@@ -8,7 +8,7 @@ import { getPosts } from "../../features/posts/postsSelector";
 import {
   Form,
   redirect,
-  useNavigation,
+  useActionData,
   useSearchParams,
 } from "react-router-dom";
 import { getFetch } from "../../service/getFetch";
@@ -20,7 +20,7 @@ const authors = ["alex-rivera", "jordan-smith", "morgan-lee"];
 function Posts() {
   const { posts } = useSelector(getPosts);
   const [searchParams] = useSearchParams();
-  const { state } = useNavigation();
+  const { success } = useActionData();
   const formRef = useRef();
   const categoryId = searchParams.get("category") ?? "all";
   const filteredPosts =
@@ -29,10 +29,10 @@ function Posts() {
       : posts;
 
   useEffect(() => {
-    if (state === "idle") {
+    if (success) {
       formRef.current?.reset();
     }
-  }, [state]);
+  }, [success]);
 
   return (
     <main className="posts-page animate-fade-in">
@@ -88,13 +88,14 @@ function Posts() {
               type="text"
               id="title"
               name="title"
+              required
               placeholder="Stunning headline..."
             />
           </div>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="category">Category</label>
-              <select id="category" name="category">
+              <select id="category" name="category" required>
                 <option value="technology">Technology</option>
                 <option value="design">Design</option>
                 <option value="business">Business</option>
@@ -104,7 +105,7 @@ function Posts() {
 
             <div className="form-group">
               <label htmlFor="author">Author</label>
-              <select id="author" name="author">
+              <select id="author" name="author" required>
                 <option value="alex-rivera">John Doe</option>
                 <option value="jordan-smith">Jane Smith</option>
                 <option value="morgan-lee">Morgan Lee</option>
@@ -117,6 +118,7 @@ function Posts() {
             <textarea
               id="content"
               name="content"
+              required
               placeholder="Share your thoughts..."
               rows="4"
             ></textarea>
@@ -124,10 +126,10 @@ function Posts() {
 
           <button
             type="submit"
-            disabled={state === "submitting"}
-            className={`btn-primary ${state === "submitting" ? "submitting" : ""}`}
+            disabled={success}
+            className={`btn-primary ${success ? "submitting" : ""}`}
           >
-            {state === "submitting" ? (
+            {success ? (
               "Publishing..."
             ) : (
               <span>
@@ -144,15 +146,21 @@ function Posts() {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
+  const title = data.title?.trim();
+  const content = data.content?.trim();
 
   const categoryId =
     categories.findIndex((category) => category === data.category) + 1;
   const authorId = authors.findIndex((author) => author === data.author) + 1;
   const createdAt = new Date().toISOString();
 
+  if (!title || !content || categoryId < 1 || authorId < 1) {
+    throw new Response("Invalid post data", { status: 400 });
+  }
+
   const newPost = {
-    title: data.title,
-    content: data.content,
+    title,
+    content,
     categoryId,
     authorId,
     status: "published",
@@ -168,7 +176,7 @@ export const action = async ({ request }) => {
   };
 
   await getFetch("posts", optional);
-  return redirect("/posts");
+  return { success: true, message: "Post published successfully!" };
 };
 
 export default Posts;

@@ -9,7 +9,9 @@ import PostCard from "../../components/PostCard/PostCard";
 function Category() {
   const { id, name } = useLoaderData();
   const { posts } = useSelector(getPosts);
-  const filteredPosts = posts?.filter((post) => +post.categoryId === +id);
+  const filteredPosts = (posts ?? []).filter(
+    (post) => +post.categoryId === +id,
+  );
 
   return (
     <section className="category-posts-page animate-fade-in">

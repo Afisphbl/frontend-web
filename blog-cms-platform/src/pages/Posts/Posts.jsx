@@ -84,7 +84,7 @@ function Posts() {
         <h2>Quick Post</h2>
         {success && (
           <p className="post-success" role="status" aria-live="polite">
-            + Post published successfully. +{" "}
+            Post published successfully.
           </p>
         )}
 

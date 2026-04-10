@@ -6,6 +6,9 @@ import PostDetails, {
   loader as postDetailsLoader,
 } from "../pages/PostDetails/PostDetails";
 import Category, { loader as categoryLoader } from "../pages/Category/Category";
+import AuthorPost, {
+  loader as authorLoader,
+} from "../pages/AuthorPost/AuthorPost";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +30,11 @@ export const router = createBrowserRouter([
         path: "posts/:postId",
         element: <PostDetails />,
         loader: postDetailsLoader,
+      },
+      {
+        path: "authors/:authorId",
+        element: <AuthorPost />,
+        loader: authorLoader,
       },
       {
         path: "categories/:categoryId",

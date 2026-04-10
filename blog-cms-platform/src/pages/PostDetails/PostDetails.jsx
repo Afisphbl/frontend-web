@@ -16,14 +16,28 @@ import { formatDate } from "../../utils/helper";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../features/categories/categoriesSelector";
 import Category from "../Category/Category";
+import { getAuthors } from "../../features/authors/authorsSelector";
 
 function PostDetails() {
   const { categoryId, status, authorId, content, createdAt, title } =
     useLoaderData();
 
-  const { categories } = useSelector(getCategories);
+  const { categories = [] } = useSelector(getCategories);
+  const { authors = [] } = useSelector(getAuthors);
 
-  const { name } = categories.find((Category) => Category.id === categoryId);
+  const authorName =
+    authors.find((author) => String(author.id) === String(authorId))?.name ??
+    `Author ${authorId}`;
+
+  const authorBio = authors.find(
+    (author) => String(author.id) === String(authorId),
+  )?.bio;
+
+  const authorAvatar = authorName.at(0).toUpperCase();
+
+  const categoryName =
+    categories.find((category) => String(category.id) === String(categoryId))
+      ?.name ?? `Category ${categoryId}`;
   return (
     <section className="post-details animate-fade-in">
       <Link to="/posts" className="back-link">
@@ -34,7 +48,7 @@ function PostDetails() {
         <div className="post-tags ">
           <Link to={`/categories/${categoryId}`} className="category-tag glass">
             <Tag size={16} />
-            <span>{name}</span>
+            <span>{categoryName}</span>
           </Link>
 
           <span
@@ -47,11 +61,11 @@ function PostDetails() {
 
         <div className="post-meta-detailed">
           <div className="author-info">
-            <span className="author-avatar-large">A</span>
+            <span className="author-avatar-large">{authorAvatar}</span>
 
             <div className="author-text">
-              <h3 className="name">Author {authorId}</h3>
-              <p className="role">Author Bio {authorId}</p>
+              <h3 className="name">{authorName}</h3>
+              <p className="role">{authorBio}</p>
             </div>
           </div>
 
@@ -108,8 +122,8 @@ function PostDetails() {
           <span className="author-avatar-large">A</span>
 
           <div className="author-description">
-            <h3>Written by Author {authorId}</h3>
-            <p>Author Bio {authorId}</p>
+            <h3>Written by Author {authorName}</h3>
+            <p>{authorBio}</p>
 
             <Link className="author-link">View all posts this author</Link>
           </div>

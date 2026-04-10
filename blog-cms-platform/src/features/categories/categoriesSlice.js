@@ -7,12 +7,20 @@ const initialState = {
   error: null,
 };
 
+export const fetchCategories = createAsyncThunk(
+  "categories/fetchCategories",
+  async () => {
+    const data = await getFetch("categories");
+    return data;
+  },
+);
+
 const categoiesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {},
-  extraReducers: (buiders) => {
-    buiders
+  extraReducers: (buider) => {
+    buider
       .addCase(fetchCategories.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -25,17 +33,9 @@ const categoiesSlice = createSlice({
       .addCase(fetchCategories.rejected, (state, action) => {
         state.categories = [];
         state.status = "error";
-        state.error = action.payload;
+        state.error = action.error?.message ?? "Failed to fetch categories";
       });
   },
 });
-
-export const fetchCategories = createAsyncThunk(
-  "categories/fetchCategories",
-  async () => {
-    const data = await getFetch("categories");
-    return data;
-  },
-);
 
 export default categoiesSlice.reducer;

@@ -5,21 +5,33 @@ import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../utils/helper";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../features/categories/categoriesSelector";
+import { getAuthors } from "../../features/authors/authorsSelector";
 
 function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
-  const { categories } = useSelector(getCategories);
+  const { categories = [] } = useSelector(getCategories);
+  const { authors = [] } = useSelector(getAuthors);
 
-  const { name } = categories.find((category) => category.id === categoryId);
+  const categoryName =
+    categories.find((category) => String(category.id) === String(categoryId))
+      ?.name ?? `Category ${categoryId}`;
+
+  const authorName =
+    authors.find((author) => String(author.id) === String(authorId))?.name ??
+    `Author ${authorId}`;
+
+  const authorAvatar = authorName.at(0).toUpperCase();
+
   const params = useParams();
+
   const isInCategoryPage = Boolean(params.categoryId);
-  console.log(isInCategoryPage);
+
   return (
     <div className="post-card glass animate-slide-up">
       <div className="post-card-content">
         <div className="post-meta">
           <span className="post-category">
             <Tag size={12} />
-            {name}
+            {categoryName}
           </span>
           <span className="post-date">
             <Clock size={12} />
@@ -39,9 +51,9 @@ function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
         </p>
 
         <div className="post-footer">
-          <Link className="post-author">
-            <span className="author-avatar">A</span>
-            {`Author ${authorId}`}
+          <Link to={`/authors/${id}`} className="post-author">
+            <span className="author-avatar">{authorAvatar}</span>
+            {authorName}
           </Link>
 
           {isInCategoryPage ? (

@@ -51,7 +51,7 @@ function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
         </p>
 
         <div className="post-footer">
-          <Link to={`/authors/${id}`} className="post-author">
+          <Link to={`/authors/${authorId}`} className="post-author">
             <span className="author-avatar">{authorAvatar}</span>
             {authorName}
           </Link>

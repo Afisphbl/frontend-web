@@ -21,22 +21,34 @@ function AuthorPost() {
         </div>
 
         <div className="author-socials">
-          <button className="social-btn">
+          <button
+            className="social-btn"
+            type="button"
+            aria-label="Email Author"
+          >
             <Mail size={20} />
           </button>
 
-          <button className="social-btn">
+          <button
+            className="social-btn"
+            type="button"
+            aria-label="View Author Portfolio"
+          >
             <Aperture size={20} />
           </button>
 
-          <button className="social-btn">
+          <button
+            className="social-btn"
+            type="button"
+            aria-label="View Author Website"
+          >
             <Globe size={20} />
           </button>
         </div>
       </div>
 
       <div className="archive-header">
-        <h2>Latest from Alex</h2>
+        <h2>Latest from {name}</h2>
         <span className="count">{authorPost.length} Articles</span>
       </div>
 

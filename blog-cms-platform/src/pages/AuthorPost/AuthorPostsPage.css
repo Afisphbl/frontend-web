@@ -78,6 +78,14 @@
   transform: translateY(-4px);
 }
 
+.social-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-4px);
+}
+
 .archive-header {
   display: flex;
   justify-content: space-between;
@@ -104,13 +112,13 @@
     padding: 2.5rem;
     text-align: center;
   }
-  
+
   .author-hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .author-hero h1 {
     font-size: 2.5rem;
   }

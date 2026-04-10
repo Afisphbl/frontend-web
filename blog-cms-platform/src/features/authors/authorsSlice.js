@@ -32,10 +32,10 @@ const authorSlice = createSlice({
         state.authors = action.payload;
         state.error = null;
       })
-      .addCase(fetchAuthors.rejected, (state) => {
+      .addCase(fetchAuthors.rejected, (state, action) => {
         state.authors = [];
         state.status = "error";
-        state.error = action.error?.message ?? "Failed to fetch categories";
+        state.error = action.error?.message ?? "Failed to fetch authors";
       });
   },
 });

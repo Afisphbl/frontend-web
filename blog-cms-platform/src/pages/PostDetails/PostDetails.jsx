@@ -119,13 +119,15 @@ function PostDetails() {
 
       <div className="author-footer-card glass">
         <div className="author-header">
-          <span className="author-avatar-large">A</span>
+          <span className="author-avatar-large">{authorAvatar}</span>
 
           <div className="author-description">
             <h3>Written by Author {authorName}</h3>
             <p>{authorBio}</p>
 
-            <Link className="author-link">View all posts this author</Link>
+            <Link to={`/authors/${authorId}`} className="author-link">
+              View all posts by this author
+            </Link>
           </div>
         </div>
       </div>

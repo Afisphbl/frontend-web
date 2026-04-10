@@ -1,17 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-import AppLayout from "../Layout/AppLayout";
+import AppLayout, { loader as appLoader } from "../Layout/AppLayout";
+import Posts, { loader as postsLoader } from "../pages/Posts/Posts";
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    loader: appLoader,
     children: [
       {
         index: true,
-        element: <h1>Hello</h1>,
+        element: <Posts />,
+        loader: postsLoader,
       },
       {
         path: "posts",
-        element: <h1>Explore</h1>,
+        element: <Posts />,
+        loader: postsLoader,
       },
       {
         path: "admin/posts/new",

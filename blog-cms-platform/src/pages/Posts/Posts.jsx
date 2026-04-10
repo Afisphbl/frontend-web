@@ -8,11 +8,11 @@ import { getPosts } from "../../features/posts/postsSelector";
 import {
   Form,
   redirect,
-  useActionData,
+  useNavigation,
   useSearchParams,
 } from "react-router-dom";
-import { getFetch } from "../../service/getFetch";
 import { useEffect, useRef } from "react";
+import { getFetch } from "../../service/getFetch";
 
 const categories = ["technology", "design", "business", "engineering"];
 const authors = ["alex-rivera", "jordan-smith", "morgan-lee"];
@@ -20,9 +20,11 @@ const authors = ["alex-rivera", "jordan-smith", "morgan-lee"];
 function Posts() {
   const { posts } = useSelector(getPosts);
   const [searchParams] = useSearchParams();
-  const { success } = useActionData();
+  const { state } = useNavigation();
   const formRef = useRef();
   const categoryId = searchParams.get("category") ?? "all";
+  const success = searchParams.get("success") === "true";
+  const isSubmitting = state === "submitting";
   const filteredPosts =
     categoryId !== "all"
       ? posts?.filter((post) => +post.categoryId === +categoryId)
@@ -80,6 +82,9 @@ function Posts() {
 
       <section className="quick-create glass">
         <h2>Quick Post</h2>
+        {success && (
+          <p className="post-success">Post published successfully.</p>
+        )}
 
         <Form method="post" className="quick-form" ref={formRef}>
           <div className="form-group">
@@ -126,10 +131,10 @@ function Posts() {
 
           <button
             type="submit"
-            disabled={success}
-            className={`btn-primary ${success ? "submitting" : ""}`}
+            disabled={isSubmitting}
+            className={`btn-primary ${isSubmitting ? "submitting" : ""}`}
           >
-            {success ? (
+            {isSubmitting ? (
               "Publishing..."
             ) : (
               <span>
@@ -176,7 +181,7 @@ export const action = async ({ request }) => {
   };
 
   await getFetch("posts", optional);
-  return { success: true, message: "Post published successfully!" };
+  return redirect("/posts?success=true");
 };
 
 export default Posts;

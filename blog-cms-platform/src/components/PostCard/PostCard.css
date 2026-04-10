@@ -54,7 +54,7 @@
   color: var(--text-primary);
 }
 
-.post-title a:hover {
+.post-title:hover {
   color: var(--accent-primary);
 }
 

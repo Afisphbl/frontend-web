@@ -6,6 +6,7 @@ import { store } from "../app/store";
 import { fetchPosts } from "../features/posts/postsSlice";
 import { useSelector } from "react-redux";
 import { getPosts } from "../features/posts/postsSelector";
+import { fetchCategories } from "../features/categories/categoriesSlice";
 
 function AppLayout() {
   const { status } = useSelector(getPosts);
@@ -24,6 +25,7 @@ function AppLayout() {
 
 export async function loader() {
   store.dispatch(fetchPosts());
+  store.dispatch(fetchCategories());
   return null;
 }
 

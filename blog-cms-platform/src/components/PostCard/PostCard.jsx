@@ -1,17 +1,25 @@
 import React from "react";
 import "./PostCard.css";
-import { Clock, PenLine, Tag, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowRight, Clock, PenLine, Tag, Trash2 } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../utils/helper";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../features/categories/categoriesSelector";
 
 function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
+  const { categories } = useSelector(getCategories);
+
+  const { name } = categories.find((category) => category.id === categoryId);
+  const params = useParams();
+  const isInCategoryPage = Boolean(params.categoryId);
+  console.log(isInCategoryPage);
   return (
     <div className="post-card glass animate-slide-up">
       <div className="post-card-content">
         <div className="post-meta">
           <span className="post-category">
             <Tag size={12} />
-            {`Category ${categoryId}`}
+            {name}
           </span>
           <span className="post-date">
             <Clock size={12} />
@@ -36,22 +44,28 @@ function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
             {`Author ${authorId}`}
           </Link>
 
-          <div className="post-actions">
-            <button
-              type="button"
-              className="action-btn edit"
-              aria-label="Edit post"
-            >
-              <PenLine size={16} />
-            </button>
-            <button
-              type="button"
-              className="action-btn delete"
-              aria-label="Delete post"
-            >
-              <Trash2 size={16} />
-            </button>
-          </div>
+          {isInCategoryPage ? (
+            <Link to={`/posts/${id}`} className="read-more">
+              Read More <ArrowRight size={16} />
+            </Link>
+          ) : (
+            <div className="post-actions">
+              <button
+                type="button"
+                className="action-btn edit"
+                aria-label="Edit post"
+              >
+                <PenLine size={16} />
+              </button>
+              <button
+                type="button"
+                className="action-btn delete"
+                aria-label="Delete post"
+              >
+                <Trash2 size={16} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

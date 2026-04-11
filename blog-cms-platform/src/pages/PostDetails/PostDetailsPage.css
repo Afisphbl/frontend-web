@@ -161,6 +161,10 @@
   gap: 1rem;
 }
 
+.toolbar-delete-form {
+  margin: 0;
+}
+
 .toolbar-btn {
   display: flex;
   align-items: center;

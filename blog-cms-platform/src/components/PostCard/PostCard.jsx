@@ -1,7 +1,7 @@
 import React from "react";
 import "./PostCard.css";
 import { ArrowRight, Clock, PenLine, Tag, Trash2 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Form, Link, useParams } from "react-router-dom";
 import { formatDate } from "../../utils/helper";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../features/categories/categoriesSelector";
@@ -24,6 +24,12 @@ function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
   const params = useParams();
 
   const isInCategoryPage = Boolean(params.categoryId);
+
+  const handleDelete = (event) => {
+    if (!window.confirm("Permanently delete this post?")) {
+      event.preventDefault();
+    }
+  };
 
   return (
     <div className="post-card glass animate-slide-up">
@@ -62,20 +68,26 @@ function PostCard({ id, title, content, authorId, categoryId, createdAt }) {
             </Link>
           ) : (
             <div className="post-actions">
-              <button
+              <Link
+                to={`/admin/posts/${id}/edit`}
                 type="button"
                 className="action-btn edit"
                 aria-label="Edit post"
               >
                 <PenLine size={16} />
-              </button>
-              <button
-                type="button"
-                className="action-btn delete"
-                aria-label="Delete post"
-              >
-                <Trash2 size={16} />
-              </button>
+              </Link>
+              <Form method="post" action="/posts">
+                <input type="hidden" name="intent" value="delete" />
+                <input type="hidden" name="postId" value={id} />
+                <button
+                  type="submit"
+                  className="action-btn delete"
+                  aria-label="Delete post"
+                  onClick={handleDelete}
+                >
+                  <Trash2 size={16} />
+                </button>
+              </Form>
             </div>
           )}
         </div>

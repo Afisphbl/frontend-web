@@ -1,0 +1,121 @@
+.admin-page {
+  padding-bottom: 5rem;
+}
+
+.admin-header {
+  margin-bottom: 3rem;
+}
+
+.admin-header h1 {
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+.cms-form {
+  display: block;
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.form-main {
+  padding: 3rem;
+  border-radius: 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.form-group.large label {
+  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.form-group.large input {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+}
+
+.form-group.large textarea {
+  min-height: 400px;
+  font-size: 1.1rem;
+  padding: 1.5rem;
+  line-height: 1.6;
+}
+
+.form-sidebar {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.sidebar-widget {
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+}
+
+.sidebar-widget h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.form-group.small label {
+  font-size: 0.825rem;
+  margin-bottom: 0.5rem;
+}
+
+.widget-actions {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary.full, .btn-secondary.full {
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-link-danger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.btn-link-danger:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-main {
+    padding: 1.5rem;
+  }
+  
+  .form-group.large input {
+    font-size: 1.25rem;
+  }
+}

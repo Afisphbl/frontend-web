@@ -152,6 +152,22 @@ function Posts() {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  const intent = formData.get("intent");
+
+  if (intent === "delete") {
+    const postId = String(formData.get("postId") ?? "").trim();
+
+    if (!postId) {
+      throw new Response("Post id is required", { status: 400 });
+    }
+
+    await getFetch(`posts/${encodeURIComponent(postId)}`, {
+      method: "DELETE",
+    });
+
+    return redirect("/posts");
+  }
+
   const data = Object.fromEntries(formData);
   const title = data.title?.trim();
   const content = data.content?.trim();

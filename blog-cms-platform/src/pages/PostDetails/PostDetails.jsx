@@ -1,6 +1,6 @@
 import React from "react";
 import "./PostDetailsPage.css";
-import { Link, useLoaderData } from "react-router-dom";
+import { Form, Link, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import {
   ArrowLeft,
   Bookmark,
@@ -11,19 +11,29 @@ import {
   Tag,
   Trash2,
 } from "lucide-react";
-import { getFetchById } from "../../service/getFetch";
+import { getFetch, getFetchById } from "../../service/getFetch";
 import { formatDate } from "../../utils/helper";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../features/categories/categoriesSelector";
-import Category from "../Category/Category";
 import { getAuthors } from "../../features/authors/authorsSelector";
 
 function PostDetails() {
-  const { categoryId, status, authorId, content, createdAt, title } =
+  const { id, categoryId, status, authorId, content, createdAt, title } =
     useLoaderData();
+  const navigation = useNavigation();
 
   const { categories = [] } = useSelector(getCategories);
   const { authors = [] } = useSelector(getAuthors);
+
+  const isDeleting =
+    navigation.state === "submitting" &&
+    navigation.formData?.get("intent") === "delete";
+
+  const handleDelete = (event) => {
+    if (!window.confirm("Permanently delete this post?")) {
+      event.preventDefault();
+    }
+  };
 
   const authorName =
     authors.find((author) => String(author.id) === String(authorId))?.name ??
@@ -60,14 +70,14 @@ function PostDetails() {
         <h1>{title}</h1>
 
         <div className="post-meta-detailed">
-          <div className="author-info">
+          <Link to={`/authors/${authorId}`} className="author-info">
             <span className="author-avatar-large">{authorAvatar}</span>
 
             <div className="author-text">
               <h3 className="name">{authorName}</h3>
               <p className="role">{authorBio}</p>
             </div>
-          </div>
+          </Link>
 
           <div className="meta-divider"></div>
           <div className="publish-info">
@@ -94,14 +104,24 @@ function PostDetails() {
 
       <div className="post-toolbar glass">
         <div className="toolbar-main">
-          <button className="toolbar-btn primary">
+          <Link to={`/admin/posts/${id}/edit`} className="toolbar-btn primary">
             <PenSquare size={16} />
             <span>Edit Article</span>
-          </button>
-          <button className="toolbar-btn danger">
-            <Trash2 size={16} />
-            <span>Delete</span>
-          </button>
+          </Link>
+
+          <Form method="post" className="toolbar-delete-form">
+            <button
+              type="submit"
+              className="toolbar-btn danger"
+              name="intent"
+              value="delete"
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              <Trash2 size={16} />
+              <span>{isDeleting ? "Deleting..." : "Delete"}</span>
+            </button>
+          </Form>
         </div>
 
         <div className="meta-divider"></div>
@@ -139,6 +159,26 @@ export const loader = async ({ params }) => {
   const { postId } = params;
   const post = await getFetchById("posts", postId);
   return post;
+};
+
+export const action = async ({ request, params }) => {
+  const formData = await request.formData();
+  const intent = formData.get("intent");
+  const { postId } = params;
+
+  if (!postId) {
+    throw new Response("Post id is required", { status: 400 });
+  }
+
+  if (intent !== "delete") {
+    throw new Response("Invalid action", { status: 400 });
+  }
+
+  await getFetch(`posts/${encodeURIComponent(String(postId))}`, {
+    method: "DELETE",
+  });
+
+  return redirect("/posts");
 };
 
 export default PostDetails;

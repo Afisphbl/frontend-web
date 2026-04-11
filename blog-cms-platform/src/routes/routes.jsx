@@ -1,14 +1,22 @@
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, Route } from "react-router-dom";
 import AppLayout, { loader as appLoader } from "../Layout/AppLayout";
 import Posts, { action as postsAction } from "../pages/Posts/Posts";
 import ErrorPage from "../pages/Error/ErrorPage";
 import PostDetails, {
+  action as postDetailsAction,
   loader as postDetailsLoader,
 } from "../pages/PostDetails/PostDetails";
 import Category, { loader as categoryLoader } from "../pages/Category/Category";
 import AuthorPost, {
   loader as authorLoader,
 } from "../pages/AuthorPost/AuthorPost";
+
+import { Component, action as editAction } from "../pages/Admin/EditPostPage";
+import {
+  Component as PostFormPage,
+  loader as postFormLoader,
+  action as postFormAction,
+} from "../pages/Admin/PostFormPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +38,7 @@ export const router = createBrowserRouter([
         path: "posts/:postId",
         element: <PostDetails />,
         loader: postDetailsLoader,
+        action: postDetailsAction,
       },
       {
         path: "authors/:authorId",
@@ -43,7 +52,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "admin/posts/new",
-        element: <h1>New Post</h1>,
+        element: <PostFormPage />,
+        loader: postFormLoader,
+        action: postFormAction,
+      },
+      {
+        path: "admin/posts/:postId/edit",
+        element: <Component />,
+        action: editAction,
       },
     ],
   },

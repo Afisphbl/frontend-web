@@ -1,7 +1,7 @@
-import { Layers } from "lucide-react";
+import { ArrowLeft, Layers } from "lucide-react";
 import "./CategoryPostsPage.css";
 import { getFetchById } from "../../service/getFetch";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getPosts } from "../../features/posts/postsSelector";
 import PostCard from "../../components/PostCard/PostCard";
@@ -15,6 +15,10 @@ function Category() {
 
   return (
     <section className="category-posts-page animate-fade-in">
+      <Link to="/posts" className="back-link">
+        <ArrowLeft size={20} />
+        Back to Posts
+      </Link>
       <div className="category-hero glass">
         <div className="category-icon-wrapper">
           <Layers size={48} />
